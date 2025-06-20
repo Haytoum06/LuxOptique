@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Vendezvotrevoiture.fr</title>
+    <link rel="icon" href="https://th.bing.com/th/id/ODLS.18724b23-9460-4675-9769-0a677d3c26ef?w=32&h=32&o=6&cb=iavawebp1&pid=AdsPlus">
+    <style>
+        .cursor {
+            cursor: not-allowed;
+        }
+
+        body {
+            background-color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body.light-mode {
+            background-color: #f5f5f5;
+        }
+        
+        body.light-mode h2,
+        body.light-mode ul,
+        body.light-mode p,
+        body.light-mode h4,
+        body.light-mode form {
+            color: #333 !important;
+        }
+        
+        body.light-mode ul {
+            background-color: #e0e0e0;
+        }
+        
+        body.light-mode li a {
+            color: #333 !important;
+        }
+        
+        body.light-mode li a:hover:not(.active) {
+            background-color: #ccc;
+        }
+        
+        body.light-mode .content-box {
+            border-color: #333;
+        }
+        
+        body.light-mode .dropdown-content {
+            background-color: #fff;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .theme-toggle:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .notification {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: #04AA6D;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .content-box {
+            text-align: center;
+            width: 320px;
+            height: auto;
+            padding: 20px;
+            border: 5px solid white;
+            margin: 20px auto;
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        button {
+            text-align: center;
+            background-color: #333;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #333;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+        }
+
+        ul {
+            text-align: center;
+            color: white;
+        }
+
+        p {
+            text-align: center;
+            color: white;
+        }
+
+        h4 {
+            text-align: center;
+            color: white;
+        }
+
+        form {
+            text-align: center;
+            color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #04AA6D;
+        }
+
+        li a:hover, .dropdown:hover .dropbtn {
+            background-color: #04AA6D;
+        }
+
+        li.dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            left: 0;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: black !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            float: none;
+            border: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropbtn {
+            background-color: transparent;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .main-link {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            color: #04AA6D;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .main-link:hover {
+            color: #45a049;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        form input {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #04AA6D;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #45a049;
+        }
+
+        ul::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Mode Jour</button>
+    <div id="notification" class="notification">
+        Salut c'est Frank Leboeuf
+    </div>
+    
+    <h1 class="cursor">Salut c'est Frank Leboeuf</h1>
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Cars</a>
+            <div class="dropdown-content">
+                <a href="https://www.mercedes-benz.fr/" target="_blank">Mercedes</a>
+            </div>
+        </li>
+    </ul>
+    
+    <a href="file:///C:/Users/pefer/Pictures/Screenshots/code/McLaren.html" >Free McLaren</a>
+    
+    <div class="content-box">
+        <h2>Combien vaut votre voiture ?</h2>
+        <p>Vous voulez vendre votre voiture ?<br>
+           Entrez la marque de votre voiture
+        </p>
+        <form>
+            <label for="fname">Marque de votre voiture</label>
+            <input type="text" id="fname" name="fname" placeholder="Ex: Renault, Peugeot...">
+        </form>
+           
+        <h4>Pour plus d'information allez sur le site: 
+            <a href="https://www.vendezvotrevoiture.fr/valeur/3-344_9/?MID=FR_BIN_1000_0_11_0-0-0-0-0-2_19-0-0-0-0-0937_3&nw=o&kw=vendez%20votrevoiture&mt=e&ap=&cr=&dv=c&pl=&msclkid=7bcfd1d4f4d210a9d14cb9867850c892&utm_expid=.dPnzL80hEVdabspqTNYBBL.1&ref=https%3A%2F%2Ffr.search.yahoo.com%2F" target="_blank">VendezVotreVoiture.fr</a>
+        </h4>
+    </div>
+
+    <footer>
+        <h3>Pour tout achat de lunettes ou de casquettes, visitez notre site partenaire 
+           <a href="file:///C:/Users/pefer/Pictures/Screenshots/code/Code.html">LuxOptic</a>
+        </h3>
+    </footer>
+
+    <script>
+        let isDarkMode = true;
+        
+        function toggleTheme() {
+            const body = document.body;
+            const toggleBtn = document.querySelector('.theme-toggle');
+            
+            if (isDarkMode) {
+                body.classList.add('light-mode');
+                toggleBtn.innerHTML = '☀️ Mode Nuit';
+                isDarkMode = false;
+            } else {
+                body.classList.remove('light-mode');
+                toggleBtn.innerHTML = '🌙 Mode Jour';
+                isDarkMode = true;
+            }
+        }
+
+        const notification = document.getElementById('notification');
+
+        function showNotification() {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        showNotification();
+        setInterval(showNotification, 10000);
+    </script>
+</body>
+</html>

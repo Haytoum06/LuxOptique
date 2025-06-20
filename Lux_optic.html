@@ -1,0 +1,987 @@
+.cart-notification.show {
+            transform: translateX(0);
+        }
+
+        /* Panier latéral */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel=icon href="🕶️">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon E-boutique</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #ff6b6b;
+            --gold: #f4d03f;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .cart-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            padding: 4rem 0;
+            background: var(--bg-light);
+        }
+
+        .welcome-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .welcome-card strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .testimonials h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .testimonial blockquote {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial cite {
+            font-weight: 600;
+            font-style: normal;
+            opacity: 0.9;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 4rem 0;
+            background: var(--bg-light);
+        }
+
+        .products-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        .product-actions {
+            text-align: center;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--text-dark) 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, var(--accent), #ee5a24);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .welcome-card {
+                padding: 2rem;
+            }
+            
+            .testimonials {
+                padding: 2rem 0;
+            }
+            
+            .products-section {
+                padding: 2rem 0;
+            }
+            
+            .footer-section {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🕶️</span>
+                    <span class="logo-text">LuxOptic</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="cart-btn" onclick="toggleCart()">
+                        🛒 Panier (<span id="cartCount">0</span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in">Mes Articles</h1>
+            <p class="subtitle fade-in">Une boutique d'exception pour des lunettes d'exception</p>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="container">
+            <div class="welcome-card fade-in">
+                <p><strong>Bienvenue dans mon e-boutique !</strong> Vous trouverez sur cette page tous les produits que je mets en vente aujourd'hui !</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="fade-in">Ce que disent nos clients</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial fade-in">
+                    <blockquote>
+                        "J'achète tous mes produits sur cette boutique depuis quelques mois, et j'avoue que je suis épaté par la qualité du service et des produits reçus."
+                    </blockquote>
+                    <cite>— Pierre</cite>
+                </div>
+                <div class="testimonial fade-in">
+                    <blockquote>
+                        "Je suis ravie de recevoir des articles d'aussi belle qualité à chaque achat !"
+                    </blockquote>
+                    <cite>— Catherine</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <h3 class="fade-in">Les articles actuellement disponibles</h3>
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-icon">🕶️</div>
+                    <div class="product-name">Lunettes Veluxi</div>
+                    <div class="product-price">149€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('veluxi')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('veluxi')">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-icon">🇫🇷</div>
+                    <div class="product-name">Lunettes France Coupe du Monde</div>
+                    <div class="product-price">129€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('france')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('france')">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-icon">🌟</div>
+                    <div class="product-name">Urban Drift</div>
+                    <div class="product-price">179€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('urban')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('urban')">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-icon">💎</div>
+                    <div class="product-name">Crystal Edge</div>
+                    <div class="product-price">199€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('crystal')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('crystal')">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-icon">✈️</div>
+                    <div class="product-name">Aero Ray</div>
+                    <div class="product-price">169€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('aero')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('aero')">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-icon">🌙</div>
+                    <div class="product-name">Noir Eclipse</div>
+                    <div class="product-price">189€</div>
+                    <div class="product-actions">
+                        <button class="product-btn" onclick="viewProduct('eclipse')">Voir détails</button>
+                        <button class="product-btn btn-secondary" onclick="addToCart('eclipse')">Ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Ce site a été fait dans le cadre de l'ISEGCOM Code Camp
+                </p>
+                <a href="https://www.youtube.com/watch?v=TgGto2R" class="video-link" target="_blank">
+                    🎥 Voir le témoignage vidéo
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal pour les détails produit -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Contenu dynamique du produit -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification panier -->
+    <div id="cartNotification" class="cart-notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <!-- Panier latéral -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>🛒 Mon Panier</h3>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-content">
+            <div id="cartItems" class="cart-items">
+                <div class="empty-cart">Votre panier est vide 🛒</div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    Total: <span id="cartTotal">0€</span>
+                </div>
+                <div class="cart-actions">
+                    <button class="cart-btn-secondary" onclick="clearCart()">Vider</button>
+                    <button class="cart-btn-primary" onclick="checkout()">Commander</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay pour le panier -->
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <script>
+        // Données des produits
+        const products = {
+            veluxi: {
+                name: "Lunettes Veluxi",
+                price: "149€",
+                priceValue: 149,
+                icon: "🕶️",
+                description: "Des lunettes au design épuré et moderne, parfaites pour un look sophistiqué au quotidien.",
+                features: ["Verres polarisés", "Monture légère", "Protection UV 100%", "Design unisexe"],
+                reviews: [
+                    { name: "Marie L.", rating: 5, comment: "Parfaites ! Design élégant et très confortables." },
+                    { name: "Thomas K.", rating: 5, comment: "Excellente qualité, je recommande vivement !" },
+                    { name: "Sophie B.", rating: 4, comment: "Très belles lunettes, livraison rapide." }
+                ]
+            },
+            france: {
+                name: "Lunettes France Coupe du Monde",
+                price: "129€",
+                priceValue: 129,
+                icon: "🇫🇷",
+                description: "Édition limitée aux couleurs de la France, pour supporter l'équipe avec style !",
+                features: ["Édition limitée", "Couleurs tricolores", "Verres anti-reflets", "Étui collector inclus"],
+                reviews: [
+                    { name: "Antoine M.", rating: 5, comment: "Parfaites pour supporter les Bleus ! Allez la France !" },
+                    { name: "Camille R.", rating: 5, comment: "Édition collector magnifique, très fière de les porter." },
+                    { name: "Lucas D.", rating: 5, comment: "Design patriotique au top, qualité irréprochable." }
+                ]
+            },
+            urban: {
+                name: "Urban Drift",
+                price: "179€",
+                priceValue: 179,
+                icon: "🌟",
+                description: "Le style urbain à l'état pur, conçues pour les aventuriers de la ville moderne.",
+                features: ["Design urbain", "Résistantes aux chocs", "Verres fumés", "Branches flexibles"],
+                reviews: [
+                    { name: "Alex P.", rating: 5, comment: "Style urbain parfait, très résistantes !" },
+                    { name: "Emma C.", rating: 4, comment: "Super pour la ville, confortables toute la journée." },
+                    { name: "Jordan F.", rating: 5, comment: "Design moderne et qualité au rendez-vous." }
+                ]
+            },
+            crystal: {
+                name: "Crystal Edge",
+                price: "199€",
+                priceValue: 199,
+                icon: "💎",
+                description: "L'élégance cristalline pour un look premium et raffiné en toutes occasions.",
+                features: ["Cristaux Swarovski", "Monture premium", "Verres haute définition", "Étui luxe inclus"],
+                reviews: [
+                    { name: "Isabella V.", rating: 5, comment: "Luxe absolu ! Les cristaux brillent magnifiquement." },
+                    { name: "Victoria H.", rating: 5, comment: "Qualité exceptionnelle, je me sens comme une star !" },
+                    { name: "Amélie T.", rating: 5, comment: "Investissement parfait, elles sont somptueuses." }
+                ]
+            },
+            aero: {
+                name: "Aero Ray",
+                price: "169€",
+                priceValue: 169,
+                icon: "✈️",
+                description: "Inspirées de l'aéronautique, ces lunettes allient performance et style aérodynamique.",
+                features: ["Design aérodynamique", "Matériaux aérospace", "Verres incurvés", "Ultra-légères"],
+                reviews: [
+                    { name: "Pilot_Mike", rating: 5, comment: "Parfaites pour les sports extrêmes, ultra-légères !" },
+                    { name: "Sarah J.", rating: 4, comment: "Design futuriste, très originales." },
+                    { name: "Kevin L.", rating: 5, comment: "Innovation au top, matériaux de haute qualité." }
+                ]
+            },
+            eclipse: {
+                name: "Noir Eclipse",
+                price: "189€",
+                priceValue: 189,
+                icon: "🌙",
+                description: "Le mystère de l'éclipse dans des lunettes au noir profond et envoutant.",
+                features: ["Noir mat premium", "Verres polarisés", "Anti-rayures", "Design mystérieux"],
+                reviews: [
+                    { name: "Mysterious_V", rating: 5, comment: "Style mystérieux parfait, noir profond magnifique." },
+                    { name: "Clara N.", rating: 5, comment: "Élégance noire absolue, qualité premium." },
+                    { name: "David K.", rating: 4, comment: "Look unique garanti, très classe !" }
+                ]
+            }
+        };
+
+        let cart = [];
+
+        // Fonction pour voir les détails d'un produit
+        function viewProduct(productId) {
+            const product = products[productId];
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="product-detail">
+                    <div class="product-header">
+                        <div class="product-icon-large">${product.icon}</div>
+                        <h2>${product.name}</h2>
+                        <div class="product-price-large">${product.price}</div>
+                    </div>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-features">
+                        <h4>Caractéristiques :</h4>
+                        <ul>
+                            ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="product-btn" onclick="addToCart('${productId}'); closeModal();">
+                            Ajouter au panier - ${product.price}
+                        </button>
+                    </div>
+                    
+                    <!-- Section Avis -->
+                    <div class="reviews-section">
+                        <h4>Avis clients ⭐⭐⭐⭐⭐</h4>
+                        <div class="reviews-list">
+                            ${product.reviews.map(review => `
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>${review.name}</strong>
+                                        <div class="review-stars">${'⭐'.repeat(review.rating)}</div>
+                                    </div>
+                                    <p>${review.comment}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        // Fonction pour ajouter au panier
+        function addToCart(productId) {
+            const product = products[productId];
+            cart.push({...product, id: productId, quantity: 1});
+            updateCartCount();
+            
+            // Afficher la notification
+            const notification = document.getElementById('cartNotification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.innerHTML = `✅ ${product.name} ajouté au panier !`;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Fonction pour mettre à jour le compteur du panier
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Fonction pour afficher/masquer le panier
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('open');
+            updateCartDisplay();
+        }
+
+        // Fonction pour mettre à jour l'affichage du panier
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Votre panier est vide 🛒</div>';
+                cartTotal.textContent = '0€';
+                return;
+            }
+            
+            let total = 0;
+            cartItems.innerHTML = cart.map((item, index) => {
+                total += item.priceValue;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <span class="cart-item-icon">${item.icon}</span>
+                            <div>
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${item.price}</div>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
+                    </div>
+                `;
+            }).join('');
+            
+            cartTotal.textContent = total + '€';
+        }
+
+        // Fonction pour supprimer un item du panier
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        // Fonction pour vider le panier
+        function clearCart() {
+            cart = [];
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        // Fonction pour procéder au checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Votre panier est vide !');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.priceValue, 0);
+            alert(`Commande confirmée ! Total: ${total}€\n\nMerci pour votre achat ! 🎉`);
+            clearCart();
+            toggleCart();
+        }
+
+        // Fonction pour fermer la modal
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Fermer la modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+    <style>
+        /* Styles pour la modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .close:hover {
+            color: var(--accent);
+        }
+
+        .product-detail {
+            padding: 2rem;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .product-icon-large {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price-large {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            margin-bottom: 2rem;
+        }
+
+        .product-features h4 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .product-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .product-features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+
+        .modal-actions {
+            text-align: center;
+        }
+
+        /* Notification panier */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+            font-weight: 600;
+        }
+
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .product-detail {
+                padding: 1.5rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .product-btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
